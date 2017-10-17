@@ -24,6 +24,10 @@ defmodule StatsTest do
   test "mode of 1 3 3 2 2 is 2, as the smallest" do
     assert Stats.mode([1,3,3,2,2]) == 2
   end
+  test "weighted mean of 10 40 30 50 20 w 1 2 3 4 5 is 32.0" do
+    assert Stats.weighted_mean([10, 40, 30, 50, 20], \
+            [1, 2, 3, 4, 5]) == 32.0
+  end
 
   test "solve sample 64630 11735 14216 99233 14470 4978 73429 38120 51135 67060" do
     s = "64630 11735 14216 99233 14470 4978 73429 38120 51135 67060"

@@ -8,6 +8,12 @@ defmodule Stats do
     Float.round(Enum.sum(numbers) / length(numbers), 1)
   end
 
+  def weighted_mean(numbers, weights) do
+      numerator = Enum.zip(numbers, weights) |> Enum.map(fn ({x, y}) -> x * y end) |> Enum.sum
+      denominator = weights |> Enum.sum
+      Float.round(numerator/denominator, 1)
+  end
+
   def median(numbers) do
     len = length(numbers)
     sorted = numbers |> Enum.sort
@@ -38,4 +44,4 @@ defmodule Stats do
   end
 end
 
-Stats.main()
+# Stats.main()

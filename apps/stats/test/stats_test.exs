@@ -29,6 +29,12 @@ defmodule StatsTest do
             [1, 2, 3, 4, 5]) == 32.0
   end
 
+  test "Qualtiles of 3 7 8 5 12 14 21 13 18 is 6, 12, 16" do
+    qs = Stats.quantiles([3,7,8,5,12,14,21,13,18])
+    assert qs|> Tuple.to_list |> Enum.all?(&Kernel.is_integer/1) == true
+    assert qs == {6, 12, 16}
+  end
+
   test "solve sample 64630 11735 14216 99233 14470 4978 73429 38120 51135 67060" do
     s = "64630 11735 14216 99233 14470 4978 73429 38120 51135 67060"
     assert Stats.solve(s) == {43900.6, 44627.5, 4978}

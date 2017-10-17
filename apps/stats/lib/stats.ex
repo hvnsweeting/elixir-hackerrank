@@ -9,9 +9,33 @@ defmodule Stats do
   end
 
   def weighted_mean(numbers, weights) do
-      numerator = Enum.zip(numbers, weights) |> Enum.map(fn ({x, y}) -> x * y end) |> Enum.sum
-      denominator = weights |> Enum.sum
-      Float.round(numerator/denominator, 1)
+    numerator = Enum.zip(numbers, weights) |> Enum.map(fn ({x, y}) -> x * y end) |> Enum.sum
+    denominator = weights |> Enum.sum
+    Float.round(numerator/denominator, 1)
+  end
+
+  @doc """
+  Calculates quantiles that divides data into 4 equal groups
+  https://www.hackerrank.com/challenges/s10-quartiles
+  A.K.A Day 1 in 10 days of statistics (s10).
+  """
+  def quantiles(numbers) do
+  # TODO refactor
+    len = length(numbers)
+    sorted = numbers |> Enum.sort
+    mid = div(len, 2)
+
+    {lower_half, upper_half } = if rem(len, 2) == 0 do
+      lower_half = Enum.slice(sorted, 0..(mid-1))
+      upper_half = Enum.slice(sorted, mid..-1)
+      {lower_half, upper_half}
+    else
+      lower_half = Enum.slice(sorted, 0..(mid-1))
+      upper_half = Enum.slice(sorted, (mid+1)..-1)
+      {lower_half, upper_half}
+    end
+
+    {trunc(median(lower_half)), trunc(median(numbers)), trunc(median(upper_half))}
   end
 
   def median(numbers) do

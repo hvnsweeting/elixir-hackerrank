@@ -80,10 +80,4 @@ defmodule StatsTest do
   test "Standard deviation of 10 40 30 50 20 is 14.1" do
     assert Stats.stdev([10, 40, 30, 50, 20]) == 14.1
   end
-
-  test "solve sample 64630 11735 14216 99233 14470 4978 73429 38120 51135 67060" do
-    s = "64630 11735 14216 99233 14470 4978 73429 38120 51135 67060"
-    assert Stats.solve(s) == {43900.6, 44627.5, 4978}
-  end
-
 end

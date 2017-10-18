@@ -144,19 +144,11 @@ defmodule Stats do
     Float.round(result, 1)
   end
 
-  def solve(numbers) do
-    numbers = numbers |> String.split |> Enum.map(fn x -> String.to_integer(x) end)
-    {mean(numbers), median(numbers), mode(numbers)}
+  def skip_input() do
+      _ = String.to_integer(String.trim(IO.gets ""))
   end
 
-  def main() do
-      _ = String.to_integer(String.trim(IO.gets ""))
-      data = String.trim(IO.gets "")
-      {r1, r2, r3} = solve(data)
-      IO.puts(r1)
-      IO.puts(r2)
-      IO.puts(r3)
+  def input() do
+      String.trim(IO.gets "") |> String.split |> Enum.map(fn x -> String.to_integer(x) end)
   end
 end
-
-# Stats.main()

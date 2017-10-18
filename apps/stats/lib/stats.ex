@@ -53,6 +53,17 @@ defmodule Stats do
             |> Enum.max_by(fn lst -> length(lst) end) |> Enum.at(0)
   end
 
+  @doc """
+  Calculates standard deviation
+  https://www.hackerrank.com/challenges/s10-standard-deviation
+  """
+  def stdev(numbers) do
+    mu = mean(numbers)
+    numerator = numbers |> Enum.map(fn n -> (n - mu) * (n - mu) end) |> Enum.sum
+    result = :math.sqrt(numerator / length(numbers))
+    Float.round(result, 1)
+  end
+
   def solve(numbers) do
     numbers = numbers |> String.split |> Enum.map(fn x -> String.to_integer(x) end)
     {mean(numbers), median(numbers), mode(numbers)}

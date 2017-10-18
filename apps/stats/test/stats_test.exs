@@ -29,10 +29,52 @@ defmodule StatsTest do
             [1, 2, 3, 4, 5]) == 32.0
   end
 
-  test "Qualtiles of 3 7 8 5 12 14 21 13 18 is 6, 12, 16" do
-    qs = Stats.quantiles([3,7,8,5,12,14,21,13,18])
-    assert qs|> Tuple.to_list |> Enum.all?(&Kernel.is_integer/1) == true
+  test "Quartiles of 3 7 8 5 12 14 21 13 18 is 6, 12, 16" do
+    qs = Stats.quartiles([3,7,8,5,12,14,21,13,18])
     assert qs == {6, 12, 16}
+  end
+
+  test "Quartile dataset" do
+    assert Stats.quartiles([6, 12, 8, 10 , 20, 16], [5, 4, 3, 2, 1, 5]) == {7.0, 11.0, 16.0}
+  end
+  test "Interquartile range of 6 12 8 10 20 16, freqs: 5 4 3 2 1 5\
+        is 9.0" do
+    iqr = Stats.interquartile_range([6, 12, 8, 10 , 20, 16], [5, 4, 3, 2, 1, 5])
+    assert is_float(iqr)
+    assert iqr == 9.0
+  end
+
+  test "Interquartile range of last testcase is 30.0" do
+    iqr = Stats.interquartile_range([10,40,30,50,20], [1,2,3,4,5])
+    assert iqr == 30.0
+  end
+
+  test "take 0 from [1,2,3], freqs: [4,4,4] is 1" do
+    assert Stats.take([1,2,3], [4, 4, 4], 0) == 1
+  end
+
+  test "take 3 from [1,2,3], freqs: [4,4,4] is 1" do
+    assert Stats.take([1,2,3], [4, 4, 4], 3) == 1
+  end
+
+  test "take 4 from [1,2,3], freqs: [4,4,4] is 2" do
+    assert Stats.take([1,2,3], [4, 4, 4], 4) == 2
+  end
+
+  test "take 5 from [1,2,3], freqs: [4,4,4] is 2" do
+    assert Stats.take([1,2,3], [4, 4, 4], 5) == 2
+  end
+
+  test "quartile index" do
+    assert Stats.quartiles_index([4, 4, 4]) == [{2,3}, {5, 6}, {8,9}]
+  end
+  test "quartile index odd" do
+    assert Stats.quartiles_index([4, 1, 4]) == [{1, 2}, {4, 4}, {6,7}]
+  end
+
+  test "median are same " do
+    dataset = Stats.gen_dataset([6,12,8,10,20,16], [5,4,3,2,1,5])
+    assert Stats.median([6,12,8,10,20,16], [5,4,3,2,1,5]) == Stats.median(dataset)
   end
 
   test "Standard deviation of 10 40 30 50 20 is 14.1" do

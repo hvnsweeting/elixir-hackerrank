@@ -80,4 +80,10 @@ defmodule StatsTest do
   test "Standard deviation of 10 40 30 50 20 is 14.1" do
     assert Stats.stdev([10, 40, 30, 50, 20]) == 14.1
   end
+
+  test "2 to the power of 3 is 8" do
+    assert Stats.pow(2, 3) == 8
+    assert Stats.pow(2, 4) == 16
+  end
+
 end

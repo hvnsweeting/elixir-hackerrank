@@ -152,11 +152,15 @@ defmodule Stats do
       String.trim(IO.gets "") |> String.split |> Enum.map(fn x -> String.to_integer(x) end)
   end
 
-  def pow(_, 0) do
-    1
-  end
   def pow(n, k) do
-    n * pow(n, k-1)
+    _pow(n, k, 1)
+  end
+
+  defp _pow(_, 0, acc) do
+    acc
+  end
+  defp _pow(n, k, acc) do
+    _pow(n, k-1, acc * n)
   end
 
   def factorial(n) do

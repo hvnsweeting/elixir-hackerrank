@@ -151,4 +151,49 @@ defmodule Stats do
   def input() do
       String.trim(IO.gets "") |> String.split |> Enum.map(fn x -> String.to_integer(x) end)
   end
+
+  def pow(_, 0) do
+    1
+  end
+  def pow(n, k) do
+    n * pow(n, k-1)
+  end
+
+  def factorial(n) do
+    fact(n, 1)
+  end
+
+  defp fact(0, acc) do
+    acc
+  end
+  defp fact(n, acc) do
+    fact(n-1, acc * n)
+  end
+
+  def choose(x, n) do
+    factorial(n) / (factorial(x) * factorial(n-x))
+  end
+
+  @doc """
+  Given ratio s to f, calculates probability of success.
+  """
+  def success_prob_from_ratio(s, f) do
+    s / (s+f)
+  end
+
+  @doc """
+  Calculates probability for binomial random variable
+  Using binomial distribution probability mass function.
+  """
+  def binomial_pmf(successes, trials, success_prob) do
+    choose(successes, trials) * pow(success_prob, successes) * pow(1-success_prob, trials - successes)
+  end
+
+  def neg_binomial_pmf(successes, trials, success_prob) do
+    choose(successes-1, trials-1) * pow(success_prob, successes) * pow(1-success_prob, trials - successes)
+  end
+
+  def geometric_dist(trials, success_prob) do
+    pow(1-success_prob, trials-1) * success_prob
+  end
 end

@@ -86,4 +86,11 @@ defmodule StatsTest do
     assert Stats.pow(2, 4) == 16
   end
 
+  test "Poisson(3, 2) is 0.180" do
+    assert Float.round(Stats.poisson_prob(3, 2), 3) == 0.18
+  end
+  test "Poisson(5, 2.5) is TODO" do
+    assert Float.round(Stats.poisson_prob(5, 2.5), 3) == 0.067
+  end
+
 end

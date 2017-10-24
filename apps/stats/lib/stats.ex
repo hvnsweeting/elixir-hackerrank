@@ -4,7 +4,6 @@ defmodule Stats do
   For https://www.hackerrank.com/challenges/s10-basic-statistics
   """
   require Integer
-
   def mean(numbers) do
     Float.round(Enum.sum(numbers) / length(numbers), 1)
   end
@@ -199,5 +198,14 @@ defmodule Stats do
 
   def geometric_dist(trials, success_prob) do
     pow(1-success_prob, trials-1) * success_prob
+  end
+
+  @doc """
+  Calculates P(k, lambda) - Poisson probability
+    k - the actual number of successes
+    lambda - the average number of successes
+  """
+  def poisson_prob(actual, average) do
+    pow(average, actual) * :math.exp(-average) / factorial(actual)
   end
 end

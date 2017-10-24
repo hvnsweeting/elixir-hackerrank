@@ -208,4 +208,8 @@ defmodule Stats do
   def poisson_prob(actual, average) do
     pow(average, actual) * :math.exp(-average) / factorial(actual)
   end
+
+  def normal_dist_func(x, mean, stddev) do
+    1/2 * (1 + :math.erf((x - mean)/(stddev*:math.sqrt(2))))
+  end
 end

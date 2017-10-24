@@ -89,8 +89,33 @@ defmodule StatsTest do
   test "Poisson(3, 2) is 0.180" do
     assert Float.round(Stats.poisson_prob(3, 2), 3) == 0.18
   end
-  test "Poisson(5, 2.5) is TODO" do
+  test "Poisson(5, 2.5) is 0.067" do
     assert Float.round(Stats.poisson_prob(5, 2.5), 3) == 0.067
+  end
+
+  @doc """
+  https://www.hackerrank.com/challenges/s10-poisson-distribution-2
+  """
+  test "Expectation of X squared" do
+    assert Float.round(160 + 40 * (0.88 + (0.88 * 0.88)), 3) == 226.176
+    assert Float.round(128 + 40 * (1.55 + (1.55 * 1.55)), 3) == 286.1
+  end
+
+  @doc """
+  https://www.hackerrank.com/challenges/s10-normal-distribution-1/tutorial
+  """
+  test "The cumulative distribution function of X - norm dist " do
+    assert Float.round(Stats.normal_dist_func(19.5, 20, 2), 3) == 0.401
+    assert Float.round(Stats.normal_dist_func(22, 20, 2) - Stats.normal_dist_func(20, 20, 2), 3) == 0.341
+  end
+
+  @doc """
+  https://www.hackerrank.com/challenges/s10-normal-distribution-2
+  """
+  test "The cumulative distribution function of X - norm dist 2" do
+    assert Float.round(100*(1-Stats.normal_dist_func(80, 70, 10)), 2) == 15.87
+    assert Float.round(100*(1-Stats.normal_dist_func(60, 70, 10)), 2) == 84.13
+    assert Float.round(100*(Stats.normal_dist_func(60, 70, 10)), 2) == 15.87
   end
 
 end

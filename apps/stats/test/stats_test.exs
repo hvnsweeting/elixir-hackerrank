@@ -118,4 +118,53 @@ defmodule StatsTest do
     assert Float.round(100*(Stats.normal_dist_func(60, 70, 10)), 2) == 15.87
   end
 
+  @doc """
+  https://www.hackerrank.com/challenges/s10-the-central-limit-theorem-1/problem
+  """
+  test "CLT-1" do
+    elevator_max = 9800
+    box_weight_mean = 205
+    box_no = 49
+    stddev = 15
+    box_weight_sum_mean = box_no * box_weight_mean
+    box_weight_sum_stddev = :math.sqrt(box_no) * stddev
+
+    assert Float.round(Stats.normal_dist_func(elevator_max, box_weight_sum_mean, box_weight_sum_stddev), 4) == 0.0098
+  end
+
+  @doc """
+  https://www.hackerrank.com/challenges/s10-the-central-limit-theorem-2/problem
+  """
+  test "CLT-2" do
+    ticket_each_mean = 2.4
+    stddev = 2.0
+    students = 100
+    tickets_left = 250
+
+    tickets_mean = students * ticket_each_mean
+    tickets_stddev = :math.sqrt(students) * stddev
+
+    assert Float.round(Stats.normal_dist_func(tickets_left, tickets_mean, tickets_stddev), 4) == 0.6915
+  end
+
+  @doc """
+  https://www.hackerrank.com/challenges/s10-the-central-limit-theorem-3/problem
+  """
+  test "CLT-3" do
+    sample_size = 100
+    pop_mean = 500
+    pop_stddev = 80
+
+    sample_stddev = pop_stddev / :math.sqrt(sample_size)
+    sample_mean = pop_mean
+    z_value = 1.96
+    # Calculating predict interval P(A<x<B) = dist_prct
+    # P(-z<Z<z) = dist_prct
+    # z = (B-mean)/stddev
+    a = sample_mean - z_value * sample_stddev
+    b = sample_mean + z_value * sample_stddev
+    assert Float.round(a, 2) == 484.32
+    assert Float.round(b, 2) == 515.68
+  end
+
 end

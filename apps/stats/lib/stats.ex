@@ -209,7 +209,14 @@ defmodule Stats do
     pow(average, actual) * :math.exp(-average) / factorial(actual)
   end
 
+  @doc """
+  Calculates probability that P(x <= mean)
+  """
   def normal_dist_func(x, mean, stddev) do
     1/2 * (1 + :math.erf((x - mean)/(stddev*:math.sqrt(2))))
   end
+
+  def main() do
+  end
+
 end

@@ -167,4 +167,10 @@ defmodule StatsTest do
     assert Float.round(b, 2) == 515.68
   end
 
+  test "Pearson correlation coefficient " do
+    xs = "10 9.8 8 7.8 7.7 7 6 5 4 2" |> String.split(" ") |> Enum.map(fn x -> Float.parse(x) |> elem(0) end)
+    ys = "200 44 32 24 22 17 15 12 8 4" |> String.split(" ") |> Enum.map(fn x -> Float.parse(x) |> elem(0) end)
+    assert Float.round(Stats.pcc(xs, ys), 3) == 0.611
+  end
+
 end

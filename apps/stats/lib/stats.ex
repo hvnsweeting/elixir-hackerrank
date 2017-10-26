@@ -216,6 +216,29 @@ defmodule Stats do
     1/2 * (1 + :math.erf((x - mean)/(stddev*:math.sqrt(2))))
   end
 
+  @doc """
+  Covariance of X and Y
+  """
+  def cov(xs, ys) do
+    mean_x = mean(xs)
+    mean_y = mean(ys)
+    n = length(xs)
+
+    r = Enum.zip(xs, ys)
+    |> Enum.reduce(0, fn {x, y}, acc -> acc + (x-mean_x)*(y-mean_y) end)
+    r/n
+  end
+
+  @doc """
+  Pearson correlation coefficient
+  """
+  def pcc(xs, ys) do
+    cov = cov(xs, ys)
+    stddev_x = stdev(xs)
+    stddev_y = stdev(ys)
+    cov / stddev_x / stddev_y
+  end
+
   def main() do
   end
 

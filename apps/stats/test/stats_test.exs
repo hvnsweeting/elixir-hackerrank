@@ -173,4 +173,22 @@ defmodule StatsTest do
     assert Float.round(Stats.pcc(xs, ys), 3) == 0.611
   end
 
+  test "Linear regression 1,2,3,4,5 Y: 2,1,4,3,5" do
+    xs = [1,2,3,4,5]
+    ys = [2,1,4,3,5]
+    {a, b} = Stats.lr(xs, ys)
+    assert Float.round(b, 2) == 0.8
+    assert Float.round(a, 2) == 0.6
+  end
+
+  @doc """
+  HR: https://www.hackerrank.com/challenges/s10-least-square-regression-line/problem
+  """
+  test "Linear regression day8 " do
+    xs=[95,85,80,70,60]
+    ys=[85,95,70,65,70]
+    {a, b} = Stats.lr(xs, ys)
+    assert Float.round(a + 80 * b, 3) == 78.288
+  end
+
 end

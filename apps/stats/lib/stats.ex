@@ -239,6 +239,19 @@ defmodule Stats do
     cov / stddev_x / stddev_y
   end
 
+  @doc """
+  Linear Regression Y = a + bX
+  Calculate b
+  """
+  def lr(xs, ys) do
+    n = length(xs)
+    xy = Enum.zip(xs, ys) |> Enum.reduce(0, fn tup2, acc -> (elem(tup2, 0) * elem(tup2, 1)) + acc end)
+    xsquares = Enum.reduce(xs, 0, fn x, acc -> pow(x, 2) + acc end)
+    b = (n * xy - Enum.sum(xs)*Enum.sum(ys)) / (n * xsquares - pow(Enum.sum(xs), 2))
+    a = mean(ys) - b * mean(xs)
+    {a, b}
+  end
+
   def main() do
   end
 

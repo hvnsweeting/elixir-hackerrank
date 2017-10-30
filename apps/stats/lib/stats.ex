@@ -252,6 +252,23 @@ defmodule Stats do
     {a, b}
   end
 
+  def spearmans_rank_cc(xs, ys) do
+    n = length(xs)
+    sorted  = xs |> Enum.sort
+    pi = xs |> Enum.map(fn x -> Enum.find_index(sorted, fn k -> k == x end)+1 end)
+    ysorted = ys |> Enum.sort
+    qi = ys |> Enum.map(fn x -> Enum.find_index(ysorted, fn k -> k == x end)+1 end)
+    IO.inspect(pi)
+    IO.inspect(qi)
+    p_squared = pi |> Enum.map(fn x -> x*x end)
+    q_squared = qi |> Enum.map(fn x -> x*x end)
+    pq = Enum.zip(pi, qi) |> Enum.reduce(0, fn tup2, acc -> (elem(tup2, 0) * elem(tup2, 1)) + acc end)
+
+
+    d_squared = Enum.sum(p_squared) - 2 * pq + Enum.sum(q_squared)
+    1 - 6 * d_squared /(n * (n * n - 1))
+  end
+
   def main() do
   end
 

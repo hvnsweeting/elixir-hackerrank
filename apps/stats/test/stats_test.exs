@@ -191,4 +191,14 @@ defmodule StatsTest do
     assert Float.round(a + 80 * b, 3) == 78.288
   end
 
+  @doc """
+  https://www.hackerrank.com/challenges/s10-spearman-rank-correlation-coefficient/problem
+  """
+  test "Spearman's Rank" do
+    xs = [10,9.8,8,7.8,7.7,1.7,6,5,1.4,2]
+    ys = [200,44,32,24,22,17,15,12,8,4]
+    r = Stats.spearmans_rank_cc(xs, ys)
+    assert Float.round(r, 3) == 0.903
+  end
+
 end
